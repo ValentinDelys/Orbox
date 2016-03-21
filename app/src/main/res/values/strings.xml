@@ -13,6 +13,8 @@
     <string name="ButtonSettings">Paramètres</string>
 
     <!-- Strings relatives à l'activité Administration -->
+    <string name="ContextMenuDeleteObject">Supprimer</string>
+    <string name="ContextMenuRenameObject">Renommer</string>
 
     <!-- Strings relatives à l'activité NewDescriptor -->
     <string name="TextViewSelectObject">Objet sélectionné: </string>

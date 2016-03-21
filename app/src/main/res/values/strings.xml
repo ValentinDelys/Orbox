@@ -1,0 +1,31 @@
+<resources>
+
+    <!-- Strings générales -->
+    <string name="app_name">Orbox</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="ButtonCancel">Annuler</string>
+    <string name="ButtonOK">OK</string>
+
+    <!-- Strings relatives à l'activité Home -->
+    <string name="ButtonAdministration">Administration</string>
+    <string name="ButtonNewDescriptor">Nouveau Descripteur</string>
+    <string name="ButtonSettings">Paramètres</string>
+
+    <!-- Strings relatives à l'activité Administration -->
+
+    <!-- Strings relatives à l'activité NewDescriptor -->
+    <string name="TextViewSelectObject">Objet sélectionné: </string>
+    <string name="TextViewSelectObjectGuidelines">Sélectionner l\'objet auquel vous voulez ajouter un nouveau descripteur</string>
+
+    <!-- Strings relatives à l'activité Settings -->
+    <string name="TextViewVolume">Volume</string>
+    <string name="TextViewLighting">Eclairage</string>
+    <string name="TextViewLanguage">Langue</string>
+    <string-array name="LanguageArrays">
+        <item>Français</item>
+        <item>Anglais</item>
+    </string-array>
+    <string name="title_activity_administration">Administration</string>
+    <string name="title_activity_new_descriptor">NewDescriptor</string>
+</resources>

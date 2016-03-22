@@ -132,14 +132,14 @@ public class Administration extends AppCompatActivity {
 
     public void onCreateContextMenu(ContextMenu menu, View v,ContextMenuInfo menuInfo){
         super.onCreateContextMenu(menu, v, menuInfo);
-        menu.add(0, v.getId(), 0, "Renommer");
-        menu.add(0, v.getId(), 0, "Supprimer");
+        menu.add(0, v.getId(), 0, "Rename");
+        menu.add(0, v.getId(), 0, "Delete");
     }
 
     public boolean onContextItemSelected(MenuItem item) {
-        if (item.getTitle() == "Renommer") {
+        if (item.getTitle() == "Rename") {
             Rename();
-        } else if (item.getTitle() == "Supprimer") {
+        } else if (item.getTitle() == "Delete") {
             Delete();
         }
         else{

@@ -28,7 +28,8 @@
 
     <!-- Strings relatives à l'activité NewDescriptor -->
     <string name="TextViewSelectObject">Objet sélectionné: </string>
-    <string name="TextViewSelectObjectGuidelines">Sélectionner l\'objet auquel vous voulez ajouter un nouveau descripteur</string>
+    <string name="TextViewSelectCategory">Categorie sélectionnée: </string>
+    <string name="TextViewSelectObjectGuidelines">Sélectionner la catégorie et l\'objet auquel vous voulez ajouter un nouveau descripteur</string>
 
     <!-- Strings relatives à l'activité Settings -->
     <string name="TextViewVolume">Volume</string>

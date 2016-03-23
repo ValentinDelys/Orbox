@@ -1,5 +1,7 @@
 package com.dii.polytech.orbox;
 
+import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -9,6 +11,9 @@ import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
 
@@ -22,6 +27,7 @@ public class Administration extends AppCompatActivity {
     ExpandableListView expListView;
     List<String> listDataHeader;
     HashMap<String, List<String>> listDataChild;
+    private Toast TestToast = null;
 
     ArrayList<Category> categories;
 
@@ -49,6 +55,9 @@ public class Administration extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        //////////////////////////////////////////// TEST ////////////////////////////////////////////
+
         // CREATE CATEGORY
         Category CatTest = new Category("Category 1");
         Category CatTest2 = new Category("Category 2");
@@ -132,14 +141,14 @@ public class Administration extends AppCompatActivity {
 
     public void onCreateContextMenu(ContextMenu menu, View v,ContextMenuInfo menuInfo){
         super.onCreateContextMenu(menu, v, menuInfo);
-        menu.add(0, v.getId(), 0, "Rename");
-        menu.add(0, v.getId(), 0, "Delete");
+        menu.add(0, v.getId(), 0, R.string.ContextMenuRenameObject);
+        menu.add(0, v.getId(), 0, R.string.ContextMenuDeleteObject);
     }
 
     public boolean onContextItemSelected(MenuItem item) {
-        if (item.getTitle() == "Rename") {
+        if (item.getTitle().toString().equals(getResources().getString(R.string.ContextMenuRenameObject))) {
             Rename();
-        } else if (item.getTitle() == "Delete") {
+        } else if (item.getTitle().toString().equals(getResources().getString(R.string.ContextMenuDeleteObject))) {
             Delete();
         }
         else{
@@ -148,13 +157,52 @@ public class Administration extends AppCompatActivity {
         return true;
     }
 
+    public void Rename(){
 
-    public void Delete(){
+        final Dialog dialogRename = new Dialog(Administration.this);
+        dialogRename.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogRename.setContentView(R.layout.dialog_administration_rename_category);
+        dialogRename.show();
+
+        final EditText dialogRenameCategory = (EditText)dialogRename.findViewById(R.id.DialogRenameCategory_NewName);
+        Button OkButton = (Button)dialogRename.findViewById(R.id.DialogRenameCategory_ButtonOk);
+        Button CancelButton = (Button)dialogRename.findViewById(R.id.DialogRenameCategory_ButtonCancel);
+
+        View.OnClickListener clickListenerButtons = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (v.getId()) {
+                    case R.id.DialogRenameCategory_ButtonOk:
+                        if(dialogRenameCategory.getText().toString().equals(""))
+                            TestToast.makeText(Administration.this, "No text entered", Toast.LENGTH_SHORT).show();
+                        else
+                        {
+                            TestToast.makeText(Administration.this, "Category rename in : " + dialogRenameCategory.getText().toString(), Toast.LENGTH_SHORT).show();
+                            // Change name on IHM
+                        }
+                        dialogRename.cancel();
+                        break;
+                    case R.id.DialogRenameCategory_ButtonCancel:
+                        TestToast.makeText(Administration.this, "Canceled", Toast.LENGTH_SHORT).show();
+                        dialogRename.cancel();
+                        break;
+                    default:
+                        //TODO
+                        break;
+                }
+            }
+        };
+
+        OkButton.setOnClickListener(clickListenerButtons);
+        CancelButton.setOnClickListener(clickListenerButtons);
 
     }
 
-    public void Rename(){
-
+    public void Delete(){
+        Dialog dialogDelete = new Dialog(Administration.this);
+        dialogDelete.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogDelete.setContentView(R.layout.dialog_administration_delete_category);
+        dialogDelete.show();
     }
 
     /*

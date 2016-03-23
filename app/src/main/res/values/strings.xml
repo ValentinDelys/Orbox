@@ -16,6 +16,16 @@
     <string name="ContextMenuDeleteObject">Supprimer</string>
     <string name="ContextMenuRenameObject">Renommer</string>
 
+    <!-- Strings relatives à la boite de dialogue delete category de administration -->
+    <string name="TextDeleteCategory">Êtes vous sûr de vouloir supprimer cette catégorie ?</string>
+    <string name="ButtonNoDeleteCategory">Non</string>
+    <string name="ButtonYesDeleteCategory">Oui</string>
+
+    <!-- Strings relatives à la boite de dialogue rename category de administration -->
+    <string name="TextRenameCategory">Entrez un nouveau nom de catégorie</string>
+    <string name="ButtonCancelRenameCategory">Annuler</string>
+    <string name="ButtonOkRenameCategory">Ok</string>
+
     <!-- Strings relatives à l'activité NewDescriptor -->
     <string name="TextViewSelectObject">Objet sélectionné: </string>
     <string name="TextViewSelectObjectGuidelines">Sélectionner l\'objet auquel vous voulez ajouter un nouveau descripteur</string>

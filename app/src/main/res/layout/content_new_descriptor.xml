@@ -38,7 +38,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:entries="@array/LanguageArrays" />
+
         </LinearLayout>
+
+        <ImageView
+            android:id="@+id/NewDescriptor_ImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:background="@drawable/camera"
+            android:layout_marginTop="35dp"/>
 
     </LinearLayout>
 
@@ -62,5 +71,6 @@
             android:enabled="false"
             android:text="@string/ButtonOK" />
     </LinearLayout>
+
 
 </RelativeLayout>

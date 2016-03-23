@@ -50,7 +50,7 @@ public class NewDescriptor extends AppCompatActivity {
 
                         if(position != 0) {
 
-                            prepareSpinnerObject(position);
+                            prepareSpinnerObject(position-1);
 
                             spinnerObject.setEnabled(true);
                         }

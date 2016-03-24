@@ -16,21 +16,20 @@
     <string name="ContextMenuDeleteCategory">Supprimer</string>
     <string name="ContextMenuRenameCategory">Renommer</string>
     <string name="ContextMenuAddObject">Nouvel objet</string>
+    <string name="QuestionRenameCategory">Entrez un nom de categorie</string>
+    <string name="QuestionAddCategory">Entrez un nom de categorie</string>
+    <string name="QuestionAddObject">Entrez un nom d\'objet</string>
+    <string name="QuestionDeleteCategory">Êtes vous sûr de vouloir supprimer cette catégorie ?</string>
 
-    <!-- Strings relatives à la boite de dialogue delete category de administration -->
-    <string name="TextDeleteCategory">Êtes vous sûr de vouloir supprimer cette catégorie ?</string>
-    <string name="ButtonNoDeleteCategory">Non</string>
-    <string name="ButtonYesDeleteCategory">Oui</string>
+    <!-- Strings relatives à la boite de dialogue edittext  -->
+    <string name="DialogEditText_TextView">Question</string>
+    <string name="DialogEditText_ButtonCancel">Annuler</string>
+    <string name="DialogEditText_ButtonOk">Ok</string>
 
-    <!-- Strings relatives à la boite de dialogue rename category de administration -->
-    <string name="TextRenameCategory">Entrez un nom de catégorie</string>
-    <string name="ButtonCancelRenameCategory">Annuler</string>
-    <string name="ButtonOkRenameCategory">Ok</string>
-
-    <!-- Strings relatives à la boite de dialogue add object de administration -->
-    <string name="TextAddObject">Entrez un nom d\'objet</string>
-    <string name="ButtonCancelAddObject">Annuler</string>
-    <string name="ButtonOkAddObject">Ok</string>
+    <!-- Strings relatives à la boite de dialogue YesNo  -->
+    <string name="DialogYesNo_TextView">Question</string>
+    <string name="DialogYesNo_ButtonNo">Non</string>
+    <string name="DialogYesNo_ButtonYes">Oui</string>
 
     <!-- Strings relatives à l'activité NewDescriptor -->
     <string name="TextViewSelectObject">Objet sélectionné: </string>

@@ -3,7 +3,6 @@ package com.dii.polytech.orbox;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.ContextMenu;
@@ -18,6 +17,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import android.widget.TextView;
 
 public class Administration extends AppCompatActivity {
 
@@ -40,6 +40,24 @@ public class Administration extends AppCompatActivity {
             if(cat.get_name().equals(name)) return cat;
         }
         return null;
+    }
+
+    public boolean objectExist(String categoryName, String objectName){
+        for(Category cat: categories){
+            if(cat.get_name().equals(categoryName)){
+                for(ObjectOrbox obj: cat.get_ObjectsOrbox()){
+                    if(obj.get_name().equals(objectName)) return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean categoryExist(String name){
+        for(Category cat: categories){
+            if(cat.get_name().equals(name)) return true;
+        }
+        return false;
     }
 
     public void removeCategoryByName(String name){
@@ -175,9 +193,9 @@ public class Administration extends AppCompatActivity {
         int groupPos = groupPos = ExpandableListView.getPackedPositionGroup(info.packedPosition);
 
         if (item.getTitle().toString().equals(getResources().getString(R.string.ContextMenuRenameCategory))) {
-            Rename(groupPos);
+            RenameCategory(groupPos);
         } else if (item.getTitle().toString().equals(getResources().getString(R.string.ContextMenuDeleteCategory))) {
-            Delete(groupPos);
+            DeleteCategory(groupPos);
         } else if (item.getTitle().toString().equals(getResources().getString(R.string.ContextMenuAddObject))) {
             AddObject(groupPos);
         }
@@ -191,30 +209,37 @@ public class Administration extends AppCompatActivity {
     public void AddObject(final int position){
         final Dialog dialogAdd = new Dialog(Administration.this);
         dialogAdd.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialogAdd.setContentView(R.layout.dialog_administration_add_object);
+        dialogAdd.setContentView(R.layout.dialog_edittext_okcancel);
         dialogAdd.show();
 
-        final EditText dialogAddObject = (EditText)dialogAdd.findViewById(R.id.DialogAddObject_NewName);
-        Button OkButton = (Button)dialogAdd.findViewById(R.id.DialogAddObject_ButtonOk);
-        Button CancelButton = (Button)dialogAdd.findViewById(R.id.DialogAddObject_ButtonCancel);
+        TextView text = (TextView)dialogAdd.findViewById(R.id.DialogEditText_TextView);
+        text.setText(getResources().getString(R.string.QuestionAddObject));
+        final EditText dialogAddObject = (EditText)dialogAdd.findViewById(R.id.DialogEditText_Text);
+        Button OkButton = (Button)dialogAdd.findViewById(R.id.DialogEditText_ButtonOk);
+        Button CancelButton = (Button)dialogAdd.findViewById(R.id.DialogEditText_ButtonCancel);
 
         View.OnClickListener clickListenerButtons = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 switch (v.getId()) {
-                    case R.id.DialogAddObject_ButtonOk:
+                    case R.id.DialogEditText_ButtonOk:
                         if(dialogAddObject.getText().toString().equals(""))
                             TestToast.makeText(Administration.this, "No text entered", Toast.LENGTH_SHORT).show();
                         else
                         {
-                            ObjectOrbox obj = new ObjectOrbox(dialogAddObject.getText().toString());
-                            addObjectCategory(get_CategoryByName(listDataHeader.get(position)).get_name(),obj);
-                            updateListData();
-                            TestToast.makeText(Administration.this, "Object added : " + dialogAddObject.getText().toString(), Toast.LENGTH_SHORT).show();
+                            if(objectExist(get_CategoryByName(listDataHeader.get(position)).get_name(),dialogAddObject.getText().toString()))
+                                TestToast.makeText(Administration.this, "The object already exists", Toast.LENGTH_SHORT).show();
+                            else
+                            {
+                                ObjectOrbox obj = new ObjectOrbox(dialogAddObject.getText().toString());
+                                addObjectCategory(get_CategoryByName(listDataHeader.get(position)).get_name(),obj);
+                                updateListData();
+                                TestToast.makeText(Administration.this, "Object added : " + dialogAddObject.getText().toString(), Toast.LENGTH_SHORT).show();
+                            }
                         }
                         dialogAdd.cancel();
                         break;
-                    case R.id.DialogAddObject_ButtonCancel:
+                    case R.id.DialogEditText_ButtonCancel:
                         TestToast.makeText(Administration.this, "Canceled", Toast.LENGTH_SHORT).show();
                         dialogAdd.cancel();
                         break;
@@ -229,33 +254,40 @@ public class Administration extends AppCompatActivity {
     }
 
     public void AddCategory(){
-        final Dialog dialogRename = new Dialog(Administration.this);
-        dialogRename.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialogRename.setContentView(R.layout.dialog_administration_rename_category);
-        dialogRename.show();
+        final Dialog dialogAdd = new Dialog(Administration.this);
+        dialogAdd.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogAdd.setContentView(R.layout.dialog_edittext_okcancel);
+        dialogAdd.show();
 
-        final EditText dialogRenameCategory = (EditText)dialogRename.findViewById(R.id.DialogRenameCategory_NewName);
-        Button OkButton = (Button)dialogRename.findViewById(R.id.DialogRenameCategory_ButtonOk);
-        Button CancelButton = (Button)dialogRename.findViewById(R.id.DialogRenameCategory_ButtonCancel);
+        TextView text = (TextView)dialogAdd.findViewById(R.id.DialogEditText_TextView);
+        text.setText(getResources().getString(R.string.QuestionAddCategory));
+        final EditText dialogAddCategory = (EditText)dialogAdd.findViewById(R.id.DialogEditText_Text);
+        Button OkButton = (Button)dialogAdd.findViewById(R.id.DialogEditText_ButtonOk);
+        Button CancelButton = (Button)dialogAdd.findViewById(R.id.DialogEditText_ButtonCancel);
 
         View.OnClickListener clickListenerButtons = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 switch (v.getId()) {
-                    case R.id.DialogRenameCategory_ButtonOk:
-                        if(dialogRenameCategory.getText().toString().equals(""))
+                    case R.id.DialogEditText_ButtonOk:
+                        if(dialogAddCategory.getText().toString().equals(""))
                             TestToast.makeText(Administration.this, "No text entered", Toast.LENGTH_SHORT).show();
                         else
                         {
-                            categories.add(new Category(dialogRenameCategory.getText().toString()));
-                            updateListData();
-                            TestToast.makeText(Administration.this, "Category added : " + dialogRenameCategory.getText().toString(), Toast.LENGTH_SHORT).show();
+                            if(categoryExist(dialogAddCategory.getText().toString()))
+                                TestToast.makeText(Administration.this, "The category already exists", Toast.LENGTH_SHORT).show();
+                            else
+                            {
+                                categories.add(new Category(dialogAddCategory.getText().toString()));
+                                updateListData();
+                                TestToast.makeText(Administration.this, "Category added : " + dialogAddCategory.getText().toString(), Toast.LENGTH_SHORT).show();
+                            }
                         }
-                        dialogRename.cancel();
+                        dialogAdd.cancel();
                         break;
-                    case R.id.DialogRenameCategory_ButtonCancel:
+                    case R.id.DialogEditText_ButtonCancel:
                         TestToast.makeText(Administration.this, "Canceled", Toast.LENGTH_SHORT).show();
-                        dialogRename.cancel();
+                        dialogAdd.cancel();
                         break;
                     default:
                         //TODO
@@ -267,36 +299,35 @@ public class Administration extends AppCompatActivity {
         CancelButton.setOnClickListener(clickListenerButtons);
     }
 
-    public void Rename(final int position){
+    public void RenameCategory(final int position){
 
         final Dialog dialogRename = new Dialog(Administration.this);
         dialogRename.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialogRename.setContentView(R.layout.dialog_administration_rename_category);
+        dialogRename.setContentView(R.layout.dialog_edittext_okcancel);
         dialogRename.show();
 
-        final EditText dialogRenameCategory = (EditText)dialogRename.findViewById(R.id.DialogRenameCategory_NewName);
-        Button OkButton = (Button)dialogRename.findViewById(R.id.DialogRenameCategory_ButtonOk);
-        Button CancelButton = (Button)dialogRename.findViewById(R.id.DialogRenameCategory_ButtonCancel);
+        TextView text = (TextView)dialogRename.findViewById(R.id.DialogEditText_TextView);
+        text.setText(getResources().getString(R.string.QuestionRenameCategory));
+        final EditText dialogRenameCategory = (EditText)dialogRename.findViewById(R.id.DialogEditText_Text);
+        Button OkButton = (Button)dialogRename.findViewById(R.id.DialogEditText_ButtonOk);
+        Button CancelButton = (Button)dialogRename.findViewById(R.id.DialogEditText_ButtonCancel);
 
         View.OnClickListener clickListenerButtons = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 switch (v.getId()) {
-                    case R.id.DialogRenameCategory_ButtonOk:
+                    case R.id.DialogEditText_ButtonOk:
                         if(dialogRenameCategory.getText().toString().equals(""))
                             TestToast.makeText(Administration.this, "No text entered", Toast.LENGTH_SHORT).show();
                         else
                         {
-                            renameCategoryByName(get_CategoryByName(listDataHeader.get(position)).get_name(), dialogRenameCategory.getText().toString());;
+                            renameCategoryByName(get_CategoryByName(listDataHeader.get(position)).get_name(), dialogRenameCategory.getText().toString());
                             updateListData();
-                            /*listAdapter=null;
-                            listAdapter = new ExpandableListAdapter(getBaseContext(), listDataHeader, listDataChild);
-                            expListView.setAdapter(listAdapter);*/
                             TestToast.makeText(Administration.this, "Category has been renamed in : " + dialogRenameCategory.getText().toString(), Toast.LENGTH_SHORT).show();
                         }
                         dialogRename.cancel();
                         break;
-                    case R.id.DialogRenameCategory_ButtonCancel:
+                    case R.id.DialogEditText_ButtonCancel:
                         TestToast.makeText(Administration.this, "Canceled", Toast.LENGTH_SHORT).show();
                         dialogRename.cancel();
                         break;
@@ -310,27 +341,29 @@ public class Administration extends AppCompatActivity {
         CancelButton.setOnClickListener(clickListenerButtons);
     }
 
-    public void Delete(final int position){
+    public void DeleteCategory(final int position){
 
         final Dialog dialogDelete = new Dialog(Administration.this);
         dialogDelete.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialogDelete.setContentView(R.layout.dialog_administration_delete_category);
+        dialogDelete.setContentView(R.layout.dialog_yesno);
         dialogDelete.show();
 
-        Button YesButton = (Button)dialogDelete.findViewById(R.id.DialogDeleteCategory_ButtonYes);
-        Button NoButton = (Button)dialogDelete.findViewById(R.id.DialogDeleteCategory_ButtonNo);
+        TextView text = (TextView)dialogDelete.findViewById(R.id.DialogYesNo_TextView);
+        text.setText(getResources().getString(R.string.QuestionDeleteCategory));
+        Button YesButton = (Button)dialogDelete.findViewById(R.id.DialogYesNo_ButtonYes);
+        Button NoButton = (Button)dialogDelete.findViewById(R.id.DialogYesNo_ButtonNo);
 
         View.OnClickListener clickListenerButtons = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 switch (v.getId()) {
-                    case R.id.DialogDeleteCategory_ButtonYes:
+                    case R.id.DialogYesNo_ButtonYes:
                         removeCategoryByName(get_CategoryByName(listDataHeader.get(position)).get_name());
                         //listDataHeader.remove(position);
                         updateListData();
                         dialogDelete.cancel();
                         break;
-                    case R.id.DialogDeleteCategory_ButtonNo:
+                    case R.id.DialogYesNo_ButtonNo:
                         dialogDelete.cancel();
                         break;
                     default:

@@ -10,15 +10,15 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/DialogAddObject_Text"
+            android:id="@+id/DialogEditText_TextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textStyle="bold"
-            android:text="@string/TextAddObject"/>
+            android:text="@string/DialogEditText_TextView"/>
 
         <EditText
-            android:id="@+id/DialogAddObject_NewName"
+            android:id="@+id/DialogEditText_Text"
             android:layout_marginTop="15dp"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -28,23 +28,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_below="@id/DialogAddObject_NewName"
+            android:layout_below="@id/DialogEditText_Text"
             android:orientation="horizontal"
             android:layout_alignParentLeft="true"
             android:gravity="center"
             android:layout_alignParentStart="true">
 
             <Button
-                android:id="@+id/DialogAddObject_ButtonCancel"
+                android:id="@+id/DialogEditText_ButtonCancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/ButtonCancelAddObject" />
+                android:text="@string/DialogEditText_ButtonCancel" />
 
             <Button
-                android:id="@+id/DialogAddObject_ButtonOk"
+                android:id="@+id/DialogEditText_ButtonOk"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/ButtonOkAddObject" />
+                android:text="@string/DialogEditText_ButtonOk" />
 
         </LinearLayout>
 

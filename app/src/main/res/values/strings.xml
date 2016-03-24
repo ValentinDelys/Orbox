@@ -16,9 +16,14 @@
     <string name="ContextMenuDeleteCategory">Supprimer</string>
     <string name="ContextMenuRenameCategory">Renommer</string>
     <string name="ContextMenuAddObject">Nouvel objet</string>
+    <string name="ContextMenuRenameObject">Renommer</string>
+    <string name="ContextMenuDeleteObject">Supprimer</string>
+    <string name="ContextMenuOpenObject">Ouvrir</string>
     <string name="QuestionRenameCategory">Entrez un nom de categorie</string>
+    <string name="QuestionRenameObject">Entrez un nom d\'objet</string>
     <string name="QuestionAddCategory">Entrez un nom de categorie</string>
     <string name="QuestionAddObject">Entrez un nom d\'objet</string>
+    <string name="QuestionDeleteObject">Êtes vous sûr de vouloir supprimer cet objet ?</string>
     <string name="QuestionDeleteCategory">Êtes vous sûr de vouloir supprimer cette catégorie ?</string>
 
     <!-- Strings relatives à la boite de dialogue edittext  -->

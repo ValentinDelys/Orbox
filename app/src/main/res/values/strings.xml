@@ -22,7 +22,7 @@
     <string name="ButtonYesDeleteCategory">Oui</string>
 
     <!-- Strings relatives à la boite de dialogue rename category de administration -->
-    <string name="TextRenameCategory">Entrez un nouveau nom de catégorie</string>
+    <string name="TextRenameCategory">Entrez un nom de catégorie</string>
     <string name="ButtonCancelRenameCategory">Annuler</string>
     <string name="ButtonOkRenameCategory">Ok</string>
 

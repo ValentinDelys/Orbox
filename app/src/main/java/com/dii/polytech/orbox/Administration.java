@@ -65,8 +65,7 @@ public class Administration extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Add();
             }
         });
 
@@ -179,6 +178,45 @@ public class Administration extends AppCompatActivity {
         return true;
     }
 
+    public void Add(){
+        final Dialog dialogRename = new Dialog(Administration.this);
+        dialogRename.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogRename.setContentView(R.layout.dialog_administration_rename_category);
+        dialogRename.show();
+
+        final EditText dialogRenameCategory = (EditText)dialogRename.findViewById(R.id.DialogRenameCategory_NewName);
+        Button OkButton = (Button)dialogRename.findViewById(R.id.DialogRenameCategory_ButtonOk);
+        Button CancelButton = (Button)dialogRename.findViewById(R.id.DialogRenameCategory_ButtonCancel);
+
+        View.OnClickListener clickListenerButtons = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (v.getId()) {
+                    case R.id.DialogRenameCategory_ButtonOk:
+                        if(dialogRenameCategory.getText().toString().equals(""))
+                            TestToast.makeText(Administration.this, "No text entered", Toast.LENGTH_SHORT).show();
+                        else
+                        {
+                            categories.add(new Category(dialogRenameCategory.getText().toString()));
+                            updateListData();
+                            TestToast.makeText(Administration.this, "Category added : " + dialogRenameCategory.getText().toString(), Toast.LENGTH_SHORT).show();
+                        }
+                        dialogRename.cancel();
+                        break;
+                    case R.id.DialogRenameCategory_ButtonCancel:
+                        TestToast.makeText(Administration.this, "Canceled", Toast.LENGTH_SHORT).show();
+                        dialogRename.cancel();
+                        break;
+                    default:
+                        //TODO
+                        break;
+                }
+            }
+        };
+        OkButton.setOnClickListener(clickListenerButtons);
+        CancelButton.setOnClickListener(clickListenerButtons);
+    }
+
     public void Rename(final int position){
 
         final Dialog dialogRename = new Dialog(Administration.this);
@@ -218,7 +256,6 @@ public class Administration extends AppCompatActivity {
                 }
             }
         };
-
         OkButton.setOnClickListener(clickListenerButtons);
         CancelButton.setOnClickListener(clickListenerButtons);
     }
@@ -255,13 +292,12 @@ public class Administration extends AppCompatActivity {
                 }
             }
         };
-
         YesButton.setOnClickListener(clickListenerButtons);
         NoButton.setOnClickListener(clickListenerButtons);
     }
 
     /*
-    * Preparing the list data
+    * updating the list data
     */
     private void updateListData() {
         listDataHeader = new ArrayList<String>();

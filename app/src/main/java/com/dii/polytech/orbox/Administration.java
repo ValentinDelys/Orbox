@@ -29,6 +29,12 @@ public class Administration extends AppCompatActivity {
 
     ArrayList<Category> categories;
 
+    public void addObjectCategory(String name, ObjectOrbox obj){
+        for(Category cat: categories){
+            if(cat.get_name().equals(name)) cat.add_ObjectOrbox(obj);
+        }
+    }
+
     public Category get_CategoryByName(String name){
         for(Category cat: categories){
             if(cat.get_name().equals(name)) return cat;
@@ -65,7 +71,7 @@ public class Administration extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Add();
+                AddCategory();
             }
         });
 
@@ -155,8 +161,9 @@ public class Administration extends AppCompatActivity {
 
         if(type==ExpandableListView.PACKED_POSITION_TYPE_GROUP)
         {
-            menu.add(0, v.getId(), 0, R.string.ContextMenuRenameObject);
-            menu.add(0, v.getId(), 0, R.string.ContextMenuDeleteObject);
+            menu.add(0, v.getId(), 0, R.string.ContextMenuAddObject);
+            menu.add(0, v.getId(), 0, R.string.ContextMenuRenameCategory);
+            menu.add(0, v.getId(), 0, R.string.ContextMenuDeleteCategory);
         }
     }
 
@@ -167,18 +174,61 @@ public class Administration extends AppCompatActivity {
 
         int groupPos = groupPos = ExpandableListView.getPackedPositionGroup(info.packedPosition);
 
-        if (item.getTitle().toString().equals(getResources().getString(R.string.ContextMenuRenameObject))) {
+        if (item.getTitle().toString().equals(getResources().getString(R.string.ContextMenuRenameCategory))) {
             Rename(groupPos);
-        } else if (item.getTitle().toString().equals(getResources().getString(R.string.ContextMenuDeleteObject))) {
+        } else if (item.getTitle().toString().equals(getResources().getString(R.string.ContextMenuDeleteCategory))) {
             Delete(groupPos);
+        } else if (item.getTitle().toString().equals(getResources().getString(R.string.ContextMenuAddObject))) {
+            AddObject(groupPos);
         }
+
         else{
             return  false;
         }
         return true;
     }
 
-    public void Add(){
+    public void AddObject(final int position){
+        final Dialog dialogAdd = new Dialog(Administration.this);
+        dialogAdd.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogAdd.setContentView(R.layout.dialog_administration_add_object);
+        dialogAdd.show();
+
+        final EditText dialogAddObject = (EditText)dialogAdd.findViewById(R.id.DialogAddObject_NewName);
+        Button OkButton = (Button)dialogAdd.findViewById(R.id.DialogAddObject_ButtonOk);
+        Button CancelButton = (Button)dialogAdd.findViewById(R.id.DialogAddObject_ButtonCancel);
+
+        View.OnClickListener clickListenerButtons = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (v.getId()) {
+                    case R.id.DialogAddObject_ButtonOk:
+                        if(dialogAddObject.getText().toString().equals(""))
+                            TestToast.makeText(Administration.this, "No text entered", Toast.LENGTH_SHORT).show();
+                        else
+                        {
+                            ObjectOrbox obj = new ObjectOrbox(dialogAddObject.getText().toString());
+                            addObjectCategory(get_CategoryByName(listDataHeader.get(position)).get_name(),obj);
+                            updateListData();
+                            TestToast.makeText(Administration.this, "Object added : " + dialogAddObject.getText().toString(), Toast.LENGTH_SHORT).show();
+                        }
+                        dialogAdd.cancel();
+                        break;
+                    case R.id.DialogAddObject_ButtonCancel:
+                        TestToast.makeText(Administration.this, "Canceled", Toast.LENGTH_SHORT).show();
+                        dialogAdd.cancel();
+                        break;
+                    default:
+                        //TODO
+                        break;
+                }
+            }
+        };
+        OkButton.setOnClickListener(clickListenerButtons);
+        CancelButton.setOnClickListener(clickListenerButtons);
+    }
+
+    public void AddCategory(){
         final Dialog dialogRename = new Dialog(Administration.this);
         dialogRename.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialogRename.setContentView(R.layout.dialog_administration_rename_category);
@@ -278,9 +328,6 @@ public class Administration extends AppCompatActivity {
                         removeCategoryByName(get_CategoryByName(listDataHeader.get(position)).get_name());
                         //listDataHeader.remove(position);
                         updateListData();
-                        /*listAdapter=null;
-                        listAdapter = new ExpandableListAdapter(getBaseContext(), listDataHeader, listDataChild);
-                        expListView.setAdapter(listAdapter);*/
                         dialogDelete.cancel();
                         break;
                     case R.id.DialogDeleteCategory_ButtonNo:

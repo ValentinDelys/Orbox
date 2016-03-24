@@ -49,14 +49,12 @@ public class NewDescriptor extends AppCompatActivity {
                     case R.id.NewDescriptor_SpinnerCategory:
 
                         if(position != 0) {
-
                             prepareSpinnerObject(position-1);
-
                             spinnerObject.setEnabled(true);
                         }
-                        else
-                        {
+                        else {
                             spinnerObject.setEnabled(false);
+                            imageViewShot.setEnabled(false);
                         }
 
                         break;
@@ -64,13 +62,9 @@ public class NewDescriptor extends AppCompatActivity {
                     case R.id.NewDescriptor_SpinnerObject:
 
                         if(position != 0)
-                        {
                             imageViewShot.setEnabled(true);
-                        }
                         else
-                        {
                             imageViewShot.setEnabled(false);
-                        }
 
                         break;
 
@@ -170,8 +164,7 @@ public class NewDescriptor extends AppCompatActivity {
 
         listCategoryNames.add("");
 
-        for(Category cat : categories)
-        {
+        for(Category cat : categories){
             listCategoryNames.add(cat.get_name());
         }
 

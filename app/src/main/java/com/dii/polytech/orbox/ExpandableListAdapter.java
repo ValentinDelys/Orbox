@@ -1,6 +1,7 @@
 package com.dii.polytech.orbox;
 
 import android.content.Context;
+import android.database.DataSetObserver;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,21 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         this._listDataHeader = listDataHeader;
         this._listDataChild = listChildData;
     }
+
+    /*@Override
+    public void notifyDataSetInvalidated() {
+        super.notifyDataSetInvalidated();
+    }
+
+    @Override
+    public void registerDataSetObserver(DataSetObserver observer) {
+        super.registerDataSetObserver(observer);
+    }
+
+    @Override
+    public void notifyDataSetChanged() {
+        super.notifyDataSetChanged();
+    }*/
 
     @Override
     public Object getChild(int groupPosition, int childPosititon) {

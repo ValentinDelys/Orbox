@@ -13,6 +13,16 @@
     <string name="ButtonSettings">Paramètres</string>
 
     <!-- Strings relatives à l'activité Administration -->
+    <string name="NoText">Aucun texte saisi</string>
+    <string name="Canceled">Annulé</string>
+    <string name="ObjectExist">l\'objet éxiste déjà</string>
+    <string name="CategoryExist">la catégorie éxiste déjà</string>
+    <string name="ObjectAdded">l\'objet à été ajouté : </string>
+    <string name="CategoryAdded">la catégorie à été ajouté : </string>
+    <string name="ObjectRenamed">l\'objet à été renommé en : </string>
+    <string name="CategoryRenamed">la catégorie à été renommé en : </string>
+    <string name="CategoryDeleted">la catégorie à été supprimé</string>
+    <string name="ObjectDeleted">l\'objet à été supprimé</string>
     <string name="ContextMenuDeleteCategory">Supprimer</string>
     <string name="ContextMenuRenameCategory">Renommer</string>
     <string name="ContextMenuAddObject">Nouvel objet</string>

@@ -268,23 +268,23 @@ public class Administration extends AppCompatActivity {
                 switch (v.getId()) {
                     case R.id.DialogEditText_ButtonOk:
                         if(dialogAddObject.getText().toString().equals(""))
-                            TestToast.makeText(Administration.this, "No text entered", Toast.LENGTH_SHORT).show();
+                            TestToast.makeText(Administration.this, getResources().getString(R.string.NoText), Toast.LENGTH_SHORT).show();
                         else
                         {
                             if(objectExist(listDataHeader.get(position), dialogAddObject.getText().toString()))
-                                TestToast.makeText(Administration.this, "The object already exists", Toast.LENGTH_SHORT).show();
+                                TestToast.makeText(Administration.this, getResources().getString(R.string.ObjectExist), Toast.LENGTH_SHORT).show();
                             else
                             {
                                 ObjectOrbox obj = new ObjectOrbox(dialogAddObject.getText().toString());
                                 addObjectCategory(listDataHeader.get(position), obj);
                                 updateListData();
-                                TestToast.makeText(Administration.this, "Object added : " + dialogAddObject.getText().toString(), Toast.LENGTH_SHORT).show();
+                                TestToast.makeText(Administration.this, getResources().getString(R.string.ObjectAdded) + dialogAddObject.getText().toString(), Toast.LENGTH_SHORT).show();
                             }
                         }
                         dialogAdd.cancel();
                         break;
                     case R.id.DialogEditText_ButtonCancel:
-                        TestToast.makeText(Administration.this, "Canceled", Toast.LENGTH_SHORT).show();
+                        TestToast.makeText(Administration.this, getResources().getString(R.string.Canceled), Toast.LENGTH_SHORT).show();
                         dialogAdd.cancel();
                         break;
                     default:
@@ -315,22 +315,22 @@ public class Administration extends AppCompatActivity {
                 switch (v.getId()) {
                     case R.id.DialogEditText_ButtonOk:
                         if(dialogAddCategory.getText().toString().equals(""))
-                            TestToast.makeText(Administration.this, "No text entered", Toast.LENGTH_SHORT).show();
+                            TestToast.makeText(Administration.this, getResources().getString(R.string.NoText), Toast.LENGTH_SHORT).show();
                         else
                         {
                             if(categoryExist(dialogAddCategory.getText().toString()))
-                                TestToast.makeText(Administration.this, "The category already exists", Toast.LENGTH_SHORT).show();
+                                TestToast.makeText(Administration.this, getResources().getString(R.string.CategoryExist), Toast.LENGTH_SHORT).show();
                             else
                             {
                                 categories.add(new Category(dialogAddCategory.getText().toString()));
                                 updateListData();
-                                TestToast.makeText(Administration.this, "Category added : " + dialogAddCategory.getText().toString(), Toast.LENGTH_SHORT).show();
+                                TestToast.makeText(Administration.this, getResources().getString(R.string.CategoryAdded) + dialogAddCategory.getText().toString(), Toast.LENGTH_SHORT).show();
                             }
                         }
                         dialogAdd.cancel();
                         break;
                     case R.id.DialogEditText_ButtonCancel:
-                        TestToast.makeText(Administration.this, "Canceled", Toast.LENGTH_SHORT).show();
+                        TestToast.makeText(Administration.this, getResources().getString(R.string.Canceled), Toast.LENGTH_SHORT).show();
                         dialogAdd.cancel();
                         break;
                     default:
@@ -362,21 +362,21 @@ public class Administration extends AppCompatActivity {
                 switch (v.getId()) {
                     case R.id.DialogEditText_ButtonOk:
                         if(dialogRenameCategory.getText().toString().equals(""))
-                            TestToast.makeText(Administration.this, "No text entered", Toast.LENGTH_SHORT).show();
+                            TestToast.makeText(Administration.this, getResources().getString(R.string.NoText), Toast.LENGTH_SHORT).show();
                         else
                         {
                             if(categoryExist(dialogRenameCategory.getText().toString()))
-                                TestToast.makeText(Administration.this, "The category already exists", Toast.LENGTH_SHORT).show();
+                                TestToast.makeText(Administration.this, getResources().getString(R.string.CategoryExist), Toast.LENGTH_SHORT).show();
                             else {
                                 renameCategoryByName(listDataHeader.get(position), dialogRenameCategory.getText().toString());
                                 updateListData();
-                                TestToast.makeText(Administration.this, "Category has been renamed in : " + dialogRenameCategory.getText().toString(), Toast.LENGTH_SHORT).show();
+                                TestToast.makeText(Administration.this, getResources().getString(R.string.CategoryRenamed) + dialogRenameCategory.getText().toString(), Toast.LENGTH_SHORT).show();
                             }
                         }
                         dialogRename.cancel();
                         break;
                     case R.id.DialogEditText_ButtonCancel:
-                        TestToast.makeText(Administration.this, "Canceled", Toast.LENGTH_SHORT).show();
+                        TestToast.makeText(Administration.this, getResources().getString(R.string.Canceled), Toast.LENGTH_SHORT).show();
                         dialogRename.cancel();
                         break;
                     default:
@@ -408,21 +408,21 @@ public class Administration extends AppCompatActivity {
                 switch (v.getId()) {
                     case R.id.DialogEditText_ButtonOk:
                         if(dialogRenameObject.getText().toString().equals(""))
-                            TestToast.makeText(Administration.this, "No text entered", Toast.LENGTH_SHORT).show();
+                            TestToast.makeText(Administration.this, getResources().getString(R.string.NoText), Toast.LENGTH_SHORT).show();
                         else
                         {
                             if(objectExist(listDataHeader.get(positionGroup), dialogRenameObject.getText().toString()))
-                                TestToast.makeText(Administration.this, "The object already exists", Toast.LENGTH_SHORT).show();
+                                TestToast.makeText(Administration.this, getResources().getString(R.string.ObjectExist), Toast.LENGTH_SHORT).show();
                             else {
                                 renameObjectCategory(listDataHeader.get(positionGroup), listDataChild.get(listDataHeader.get(positionGroup)).get(positionChild), dialogRenameObject.getText().toString());
                                 updateListData();
-                                TestToast.makeText(Administration.this, "Object has been renamed in : " + dialogRenameObject.getText().toString(), Toast.LENGTH_SHORT).show();
+                                TestToast.makeText(Administration.this, getResources().getString(R.string.ObjectRenamed) + dialogRenameObject.getText().toString(), Toast.LENGTH_SHORT).show();
                             }
                         }
                         dialogRename.cancel();
                         break;
                     case R.id.DialogEditText_ButtonCancel:
-                        TestToast.makeText(Administration.this, "Canceled", Toast.LENGTH_SHORT).show();
+                        TestToast.makeText(Administration.this, getResources().getString(R.string.Canceled), Toast.LENGTH_SHORT).show();
                         dialogRename.cancel();
                         break;
                     default:
@@ -454,11 +454,11 @@ public class Administration extends AppCompatActivity {
                     case R.id.DialogYesNo_ButtonYes:
                         removeObjectByName(listDataHeader.get(positionGroup),listDataChild.get(listDataHeader.get(positionGroup)).get(positionChild));
                         updateListData();
-                        TestToast.makeText(Administration.this, "The object has been deleted", Toast.LENGTH_SHORT).show();
+                        TestToast.makeText(Administration.this, getResources().getString(R.string.ObjectDeleted), Toast.LENGTH_SHORT).show();
                         dialogDelete.cancel();
                         break;
                     case R.id.DialogYesNo_ButtonNo:
-                        TestToast.makeText(Administration.this, "Canceled", Toast.LENGTH_SHORT).show();
+                        TestToast.makeText(Administration.this, getResources().getString(R.string.Canceled), Toast.LENGTH_SHORT).show();
                         dialogDelete.cancel();
                         break;
                     default:
@@ -491,11 +491,11 @@ public class Administration extends AppCompatActivity {
                         removeCategoryByName(listDataHeader.get(position));
                         //listDataHeader.remove(position);
                         updateListData();
-                        TestToast.makeText(Administration.this, "The category has been deleted", Toast.LENGTH_SHORT).show();
+                        TestToast.makeText(Administration.this, getResources().getString(R.string.CategoryDeleted), Toast.LENGTH_SHORT).show();
                         dialogDelete.cancel();
                         break;
                     case R.id.DialogYesNo_ButtonNo:
-                        TestToast.makeText(Administration.this, "Canceled", Toast.LENGTH_SHORT).show();
+                        TestToast.makeText(Administration.this, getResources().getString(R.string.Canceled), Toast.LENGTH_SHORT).show();
                         dialogDelete.cancel();
                         break;
                     default:

@@ -271,12 +271,12 @@ public class Administration extends AppCompatActivity {
                             TestToast.makeText(Administration.this, "No text entered", Toast.LENGTH_SHORT).show();
                         else
                         {
-                            if(objectExist(get_CategoryByName(listDataHeader.get(position)).get_name(),dialogAddObject.getText().toString()))
+                            if(objectExist(listDataHeader.get(position), dialogAddObject.getText().toString()))
                                 TestToast.makeText(Administration.this, "The object already exists", Toast.LENGTH_SHORT).show();
                             else
                             {
                                 ObjectOrbox obj = new ObjectOrbox(dialogAddObject.getText().toString());
-                                addObjectCategory(listDataHeader.get(position),obj);
+                                addObjectCategory(listDataHeader.get(position), obj);
                                 updateListData();
                                 TestToast.makeText(Administration.this, "Object added : " + dialogAddObject.getText().toString(), Toast.LENGTH_SHORT).show();
                             }
@@ -365,9 +365,13 @@ public class Administration extends AppCompatActivity {
                             TestToast.makeText(Administration.this, "No text entered", Toast.LENGTH_SHORT).show();
                         else
                         {
-                            renameCategoryByName(listDataHeader.get(position), dialogRenameCategory.getText().toString());
-                            updateListData();
-                            TestToast.makeText(Administration.this, "Category has been renamed in : " + dialogRenameCategory.getText().toString(), Toast.LENGTH_SHORT).show();
+                            if(categoryExist(dialogRenameCategory.getText().toString()))
+                                TestToast.makeText(Administration.this, "The category already exists", Toast.LENGTH_SHORT).show();
+                            else {
+                                renameCategoryByName(listDataHeader.get(position), dialogRenameCategory.getText().toString());
+                                updateListData();
+                                TestToast.makeText(Administration.this, "Category has been renamed in : " + dialogRenameCategory.getText().toString(), Toast.LENGTH_SHORT).show();
+                            }
                         }
                         dialogRename.cancel();
                         break;
@@ -407,9 +411,13 @@ public class Administration extends AppCompatActivity {
                             TestToast.makeText(Administration.this, "No text entered", Toast.LENGTH_SHORT).show();
                         else
                         {
-                            renameObjectCategory(listDataHeader.get(positionGroup), listDataChild.get(listDataHeader.get(positionGroup)).get(positionChild), dialogRenameObject.getText().toString());
-                            updateListData();
-                            TestToast.makeText(Administration.this, "Object has been renamed in : " + dialogRenameObject.getText().toString(), Toast.LENGTH_SHORT).show();
+                            if(objectExist(listDataHeader.get(positionGroup), dialogRenameObject.getText().toString()))
+                                TestToast.makeText(Administration.this, "The object already exists", Toast.LENGTH_SHORT).show();
+                            else {
+                                renameObjectCategory(listDataHeader.get(positionGroup), listDataChild.get(listDataHeader.get(positionGroup)).get(positionChild), dialogRenameObject.getText().toString());
+                                updateListData();
+                                TestToast.makeText(Administration.this, "Object has been renamed in : " + dialogRenameObject.getText().toString(), Toast.LENGTH_SHORT).show();
+                            }
                         }
                         dialogRename.cancel();
                         break;

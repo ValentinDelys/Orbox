@@ -32,14 +32,16 @@
                     android:gravity="center"
                     android:text="@string/TextViewSelectCategory"
                     android:layout_row="0"
-                    android:layout_column="0" />
+                    android:layout_column="0"
+                    android:layout_marginTop="15dp"/>
 
             <Spinner
                 android:id="@+id/NewDescriptor_SpinnerCategory"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_row="0"
-                android:layout_column="2" />
+                android:layout_column="2"
+                android:layout_marginTop="15dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -47,24 +49,33 @@
                 android:gravity="center"
                 android:text="@string/TextViewSelectObject"
                 android:layout_row="1"
-                android:layout_column="0" />
+                android:layout_column="0"
+                android:layout_marginTop="15dp"/>
 
             <Spinner
                 android:id="@+id/NewDescriptor_SpinnerObject"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_row="1"
-                android:layout_column="2" />
+                android:layout_column="2"
+                android:layout_marginTop="15dp"/>
 
         </GridLayout>
 
-        <ImageView
-            android:id="@+id/NewDescriptor_ImageViewShot"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/TextViewTakePicture"
+            android:layout_marginTop="15dp"/>
+
+        <Button
+            android:id="@+id/NewDescriptor_ButtonTakePicture"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|center_horizontal"
             android:background="@drawable/image_view_states"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="10dp"/>
     </LinearLayout>
 
     <LinearLayout

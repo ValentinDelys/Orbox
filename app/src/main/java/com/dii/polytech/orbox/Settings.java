@@ -54,6 +54,7 @@ public class Settings extends AppCompatActivity {
 
         buttonCancel.setOnClickListener(clickListenerButtons);
         buttonOK.setOnClickListener(clickListenerButtons);
+
     }
 
 }

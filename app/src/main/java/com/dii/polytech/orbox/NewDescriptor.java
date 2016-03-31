@@ -1,91 +1,30 @@
 package com.dii.polytech.orbox;
 
+import android.content.Intent;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
 
 public class NewDescriptor extends AppCompatActivity {
 
-    public Category get_CategoryByName(String name){
-        for(Category cat: categories){
-            if(cat.get_name().equals(name)) return cat;
-        }
-        return null;
-    }
-
-    private View.OnClickListener clickListenerButtons = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.NewDescriptor_ButtonOk:
-                    //TODO
-                    finish();
-                    break;
-                case R.id.NewDescriptor_ButtonCancel:
-                    finish();
-                    break;
-                default:
-                    //TODO
-                    break;
-            }
-        }
-    };
-
-    private Spinner.OnItemSelectedListener clickListenerSpinner = new AdapterView.OnItemSelectedListener(){
-
-        @Override
-        public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-
-                switch(parentView.getId())
-                {
-                    case R.id.NewDescriptor_SpinnerCategory:
-
-                        if(position != 0) {
-                            prepareSpinnerObject(position-1);
-                            spinnerObject.setEnabled(true);
-                        }
-                        else {
-                            spinnerObject.setEnabled(false);
-                            imageViewShot.setEnabled(false);
-                        }
-
-                        break;
-
-                    case R.id.NewDescriptor_SpinnerObject:
-
-                        if(position != 0)
-                            imageViewShot.setEnabled(true);
-                        else
-                            imageViewShot.setEnabled(false);
-
-                        break;
-
-                    default:
-                        //TODO
-                        break;
-                }
-        }
-
-        @Override
-        public void onNothingSelected(AdapterView<?> parentView) {
-            //TODO
-        }
-    };
+    public final static int COORDINATES = 0;
 
     private Button buttonCancel = null;
     private Button buttonOK = null;
     private Spinner spinnerCategory = null;
     private Spinner spinnerObject = null;
-    private ImageView imageViewShot = null;
+    private Button buttonTakePicture = null;
     private ArrayList<Category> categories;
+    private ArrayList<Point> coordinates;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,7 +41,8 @@ public class NewDescriptor extends AppCompatActivity {
         buttonCancel.setOnClickListener(clickListenerButtons);
         buttonOK.setOnClickListener(clickListenerButtons);
 
-        imageViewShot = (ImageView) findViewById(R.id.NewDescriptor_ImageViewShot);
+        buttonTakePicture = (Button) findViewById(R.id.NewDescriptor_ButtonTakePicture);
+        buttonTakePicture.setOnClickListener(clickListenerButtons);
 
         spinnerCategory = (Spinner) findViewById((R.id.NewDescriptor_SpinnerCategory));
         spinnerObject = (Spinner) findViewById((R.id.NewDescriptor_SpinnerObject));
@@ -113,12 +53,127 @@ public class NewDescriptor extends AppCompatActivity {
         /*Disable buttonOK, spinnerObject and imageViewShot*/
         buttonOK.setEnabled(false);
         spinnerObject.setEnabled(false);
-        imageViewShot.setEnabled(false);
+        buttonTakePicture.setEnabled(false);
 
+        /*Test*/
         MakeTest();
 
         prepareSpinnerCategory();
     }
+
+    private View.OnClickListener clickListenerButtons = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.NewDescriptor_ButtonOk:
+                    //TODO
+                    finish();
+                    break;
+                case R.id.NewDescriptor_ButtonCancel:
+                    finish();
+                    break;
+                case R.id.NewDescriptor_ButtonTakePicture:
+                    Intent intent = new Intent(NewDescriptor.this, ImageAreaSelector.class);
+                    startActivityForResult(intent,COORDINATES);
+                default:
+                    //TODO
+                    break;
+            }
+        }
+    };
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == COORDINATES) {
+            if (resultCode == RESULT_OK) {
+                coordinates = data.getParcelableArrayListExtra("Coordinates");
+
+                buttonOK.setEnabled(true);
+
+                /*Test*/
+                for (Point p : coordinates) {
+                    Log.d("Coordonnées", "x = " + String.valueOf(p.x) + " ,y = " + String.valueOf(p.y));
+                }
+            }
+        }
+    }
+
+    private void prepareSpinnerCategory() {
+
+        ArrayList<String> listCategoryNames = new ArrayList<String>();
+
+        listCategoryNames.add("");
+
+        for(Category cat : categories){
+            listCategoryNames.add(cat.get_name());
+        }
+
+        ArrayAdapter<String> adapterSpinnerCategory = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listCategoryNames);
+        spinnerCategory.setAdapter(adapterSpinnerCategory);
+    }
+
+    private void prepareSpinnerObject(int position) {
+
+        ArrayList<String> objects = new ArrayList<String>();
+
+        objects.add("");
+
+        for (ObjectOrbox obj : categories.get(position).get_ObjectsOrbox()) {
+            objects.add(obj.get_name());
+        }
+
+        ArrayAdapter<String> adapterSpinnerObject = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, objects);
+
+        spinnerObject.setAdapter(adapterSpinnerObject);
+    }
+
+    public Category get_CategoryByName(String name){
+        for(Category cat: categories){
+            if(cat.get_name().equals(name)) return cat;
+        }
+        return null;
+    }
+
+    private Spinner.OnItemSelectedListener clickListenerSpinner = new AdapterView.OnItemSelectedListener(){
+
+        @Override
+        public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+
+            switch(parentView.getId())
+            {
+                case R.id.NewDescriptor_SpinnerCategory:
+
+                    if(position != 0) {
+                        prepareSpinnerObject(position-1);
+                        spinnerObject.setEnabled(true);
+                    }
+                    else {
+                        spinnerObject.setEnabled(false);
+                        buttonTakePicture.setEnabled(false);
+                    }
+
+                    break;
+
+                case R.id.NewDescriptor_SpinnerObject:
+
+                    if(position != 0)
+                        buttonTakePicture.setEnabled(true);
+                    else
+                        buttonTakePicture.setEnabled(false);
+
+                    break;
+
+                default:
+                    //TODO
+                    break;
+            }
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parentView) {
+            //TODO
+        }
+    };
 
     private void MakeTest(){
 
@@ -157,34 +212,9 @@ public class NewDescriptor extends AppCompatActivity {
         categories.add(CatTest2);
         categories.add(CatTest3);
     }
-
-    private void prepareSpinnerCategory() {
-
-        ArrayList<String> listCategoryNames = new ArrayList<String>();
-
-        listCategoryNames.add("");
-
-        for(Category cat : categories){
-            listCategoryNames.add(cat.get_name());
-        }
-
-        ArrayAdapter<String> adapterSpinnerCategory = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listCategoryNames);
-        spinnerCategory.setAdapter(adapterSpinnerCategory);
-    }
-
-    private void prepareSpinnerObject(int position) {
-
-        ArrayList<String> objects = new ArrayList<String>();
-
-        objects.add("");
-
-        for (ObjectOrbox obj : categories.get(position).get_ObjectsOrbox()) {
-            objects.add(obj.get_name());
-        }
-
-        ArrayAdapter<String> adapterSpinnerObject = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, objects);
-
-        spinnerObject.setAdapter(adapterSpinnerObject);
-    }
 }
+
+
+
+
 

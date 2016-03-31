@@ -1,6 +1,5 @@
 package com.dii.polytech.orbox;
 
-
 public class Descriptor {
     private String _name;
     private boolean _active;

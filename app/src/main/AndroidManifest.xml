@@ -39,12 +39,10 @@
             android:label="@string/title_activity_descriptor_view"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ObectProperties"
+            android:name=".ObjectProperties"
             android:screenOrientation="portrait"
-            android:label="@string/title_activity_obect_properties"
+            android:label="@string/title_activity_object_properties"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

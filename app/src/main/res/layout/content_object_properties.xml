@@ -9,8 +9,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.dii.polytech.orbox.ObectProperties"
-    tools:showIn="@layout/activity_obect_properties">
+    tools:context=".ObjectProperties"
+    tools:showIn="@layout/activity_object_properties">
 
     <RelativeLayout
         android:layout_width="match_parent"

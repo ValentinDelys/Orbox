@@ -10,13 +10,13 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ObectProperties extends AppCompatActivity {
+public class ObjectProperties extends AppCompatActivity {
     Toast TestToast = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_obect_properties);
+        setContentView(R.layout.activity_object_properties);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         TextView objectName = (TextView)findViewById(R.id.ObjectProperties_nameObject);
         setSupportActionBar(toolbar);

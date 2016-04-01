@@ -14,11 +14,12 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import android.widget.TextView;
 
 public class Administration extends AppCompatActivity {
 
@@ -182,7 +183,7 @@ public class Administration extends AppCompatActivity {
                 ObjectOrbox Obj = Cat.get_ObjectOrboxByName(listDataChild.get(listDataHeader.get(groupPosition)).get(childPosition));
 
                 // OPEN OBJECT ACTIVITY;
-                Intent intent = new Intent(Administration.this, ObectProperties.class);
+                Intent intent = new Intent(Administration.this, ObjectProperties.class);
                 String message = listDataChild.get(listDataHeader.get(groupPosition)).get(childPosition);
                 intent.putExtra("Category", listDataHeader.get(groupPosition));
                 intent.putExtra("Object", listDataChild.get(listDataHeader.get(groupPosition)).get(childPosition));
@@ -247,7 +248,7 @@ public class Administration extends AppCompatActivity {
                 DeleteObject(groupPos, childPos);
             } else if (item.getTitle().toString().equals(getResources().getString(R.string.ContextMenuOpenObject))) {
                 // OPEN OBJECT ACTIVITY;
-                Intent intent = new Intent(this, ObectProperties.class);
+                Intent intent = new Intent(this, ObjectProperties.class);
                 String message = listDataChild.get(listDataHeader.get(groupPos)).get(childPos);
                 intent.putExtra("Category", listDataHeader.get(groupPos));
                 intent.putExtra("Object", listDataChild.get(listDataHeader.get(groupPos)).get(childPos));

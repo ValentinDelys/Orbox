@@ -1,6 +1,7 @@
 package com.dii.polytech.orbox;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -180,7 +181,12 @@ public class Administration extends AppCompatActivity {
 
                 ObjectOrbox Obj = Cat.get_ObjectOrboxByName(listDataChild.get(listDataHeader.get(groupPosition)).get(childPosition));
 
-                Toast.makeText(getApplicationContext(), Obj.toString(), Toast.LENGTH_SHORT).show();
+                // OPEN OBJECT ACTIVITY;
+                Intent intent = new Intent(Administration.this, ObectProperties.class);
+                String message = listDataChild.get(listDataHeader.get(groupPosition)).get(childPosition);
+                intent.putExtra("Category", listDataHeader.get(groupPosition));
+                intent.putExtra("Object", listDataChild.get(listDataHeader.get(groupPosition)).get(childPosition));
+                startActivity(intent);
 
                 return false;
             }
@@ -240,7 +246,12 @@ public class Administration extends AppCompatActivity {
             } else if (item.getTitle().toString().equals(getResources().getString(R.string.ContextMenuDeleteObject))) {
                 DeleteObject(groupPos, childPos);
             } else if (item.getTitle().toString().equals(getResources().getString(R.string.ContextMenuOpenObject))) {
-                // OPEN OBJECT ACTIVITY
+                // OPEN OBJECT ACTIVITY;
+                Intent intent = new Intent(this, ObectProperties.class);
+                String message = listDataChild.get(listDataHeader.get(groupPos)).get(childPos);
+                intent.putExtra("Category", listDataHeader.get(groupPos));
+                intent.putExtra("Object", listDataChild.get(listDataHeader.get(groupPos)).get(childPos));
+                startActivity(intent);
             }
             else{
                 return  false;

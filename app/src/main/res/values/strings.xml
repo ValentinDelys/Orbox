@@ -52,6 +52,9 @@
     <string name="TextViewSelectObjectGuidelines">Sélectionner la catégorie et l\'objet auquel vous voulez ajouter un nouveau descripteur</string>
     <string name="TextViewTakePicture">Appuyer sur l\'icône suivante pour prendre une photo:</string>
 
+    <!-- Strings relatives à l'activité objectproperties -->
+    <string name="ObjectProperties_oralDescription">Description orale : </string>
+
     <!-- Strings relatives à l'activité Settings -->
     <string name="TextViewVolume">Volume</string>
     <string name="TextViewLighting">Eclairage</string>
@@ -62,7 +65,4 @@
     </string-array>
     <string name="title_activity_administration">Administration</string>
     <string name="title_activity_new_descriptor">NewDescriptor</string>
-    <string name="title_activity_test">Test</string>
-    <string name="title_activity_draw_view">DrawView</string>
-    <string name="title_activity_descriptor_view">DescriptorView</string>
 </resources>

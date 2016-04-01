@@ -27,8 +27,8 @@
         <activity
             android:name=".Administration"
             android:label="@string/title_activity_administration"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".NewDescriptor"
             android:label="@string/title_activity_new_descriptor"
@@ -38,6 +38,13 @@
             android:name=".ImageAreaSelector"
             android:label="@string/title_activity_descriptor_view"
             android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ObectProperties"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_obect_properties"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

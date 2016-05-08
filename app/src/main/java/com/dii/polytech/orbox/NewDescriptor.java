@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -18,13 +19,15 @@ public class NewDescriptor extends AppCompatActivity {
 
     public final static int COORDINATES = 0;
 
+    private Toast toast = null ;
+    ArrayList<Category> categories ;
     private Button buttonCancel = null;
     private Button buttonOK = null;
     private Spinner spinnerCategory = null;
     private Spinner spinnerObject = null;
     private Button buttonTakePicture = null;
-    private ArrayList<Category> categories;
     private ArrayList<Point> coordinates;
+    ClientFrameManager clientframe = new ClientFrameManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +59,7 @@ public class NewDescriptor extends AppCompatActivity {
         buttonTakePicture.setEnabled(false);
 
         /*Test*/
-        MakeTest();
+        Initialize();
 
         prepareSpinnerCategory();
     }
@@ -175,8 +178,33 @@ public class NewDescriptor extends AppCompatActivity {
         }
     };
 
-    private void MakeTest(){
+    private void Initialize(){
 
+        categories = new ArrayList<Category>();
+        String frame = "02\t" + "SELECT * FROM categorie WHERE 1=1" + "\n" ;
+        // Send Frame by bluetooth
+        // Recieve string
+        String frameRecieve = "" ; // = ......
+        if(clientframe.transmissionSucceed(frameRecieve))
+            categories = clientframe.buildCategory(frameRecieve);
+        else
+                Toast.makeText(NewDescriptor.this, getResources().getString(R.string.error_frame), Toast.LENGTH_SHORT).show();
+
+        ArrayList<ObjectOrbox> listObj = new ArrayList<ObjectOrbox>();
+        for(Category cat : categories){
+            frame = "02\t" + "SELECT * FROM objet WHERE objet.id_categorie= ?" + "\n";
+            // Send frame by bluetooth
+            // Recieve string
+            if(clientframe.transmissionSucceed(frameRecieve)) {
+                listObj = clientframe.buildObjectOrbox(frameRecieve);
+                for(ObjectOrbox obj : listObj){
+                    cat.add_ObjectOrbox(obj);
+                }
+            }
+            else
+                Toast.makeText(NewDescriptor.this, getResources().getString(R.string.error_frame), Toast.LENGTH_SHORT).show();
+        }
+        /*
         // CREATE CATEGORY
         Category CatTest = new Category("Pièces");
         Category CatTest2 = new Category("Fruits");
@@ -210,7 +238,7 @@ public class NewDescriptor extends AppCompatActivity {
         categories = new ArrayList<Category>();
         categories.add(CatTest);
         categories.add(CatTest2);
-        categories.add(CatTest3);
+        categories.add(CatTest3);*/
     }
 }
 

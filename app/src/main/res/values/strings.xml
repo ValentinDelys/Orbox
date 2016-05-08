@@ -67,4 +67,5 @@
     <string name="title_activity_new_descriptor">NewDescriptor</string>
     <string name="title_activity_descriptor_view">DescriptorView</string>
     <string name="title_activity_object_properties">ObjectProperties</string>
+    <string name="error_frame">Erreur lors de la lecture des paramètres</string>
 </resources>

@@ -23,26 +23,31 @@ public class ImageAreaSelector extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ArrayList<Point>  coordinates = descriptorView.getPoints();
+        if (fab != null) {
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ArrayList<Point> coordinates = descriptorView.getPoints();
 
-//                for (Point p : coordinates) {
-//                    Log.d("Coordonnées", "x = " + String.valueOf(p.x) + " ,y = " + String.valueOf(p.y));
-//                }
+                    //                for (Point p : coordinates) {
+                    //                    Log.d("Coordonnées", "x = " + String.valueOf(p.x) + " ,y = " + String.valueOf(p.y));
+                    //                }
 
-                Intent intent = new Intent();
-                intent.putParcelableArrayListExtra("Coordinates",coordinates);
+                    Intent intent = new Intent();
+                    intent.putParcelableArrayListExtra("Coordinates", coordinates);
 
-                setResult(RESULT_OK, intent);
-                finish();
-            }
-        });
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }
+            });
+        }
 
         descriptorView = (DescriptorView)findViewById(R.id.ImageAreaSelector_DescriptorView);
-        descriptorView.setImageResource(R.drawable.img_test);
-        descriptorView.setScaleType(ImageView.ScaleType.FIT_START);
+        if (descriptorView != null) {
+            descriptorView.setImageResource(R.drawable.img_test);
+            descriptorView.setScaleType(ImageView.ScaleType.FIT_START);
+        }
+
     }
 
 }
